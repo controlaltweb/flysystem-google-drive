@@ -671,10 +671,12 @@ class GoogleDriveAdapter extends AbstractAdapter
         if ($this->publish($path)) {
             $obj = $this->getFileObject($path);
             if ($url = $obj->getWebContentLink()) {
-                return str_replace('export=download', 'export=media', $url);
+                $url = str_replace('https://drive.google.com/uc?id=', 'https://lh3.googleusercontent.com/d/', $url);
+                return str_replace('&export=download', '', $url);
             }
             if ($url = $obj->getWebViewLink()) {
-                return $url;
+                $url = str_replace('https://drive.google.com/uc?id=', 'https://lh3.googleusercontent.com/d/', $url);
+                return str_replace('&export=download', '', $url);
             }
         }
         return false;
